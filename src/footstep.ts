@@ -11,7 +11,7 @@ function playRandomSound(material: MaterialType) {
 
   const randomIndex = Math.floor(Math.random() * soundFiles[material].length);
   mySound = WA.sound.loadSound(
-    `https://komponentab.github.io/PolicyThon/sounds/${soundFiles[material][randomIndex]}`
+    `https://workadventure.github.io/the-office-map/sounds/${soundFiles[material][randomIndex]}`
   );
   mySound.play(audioConfig);
 }
