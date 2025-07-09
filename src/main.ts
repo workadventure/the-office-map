@@ -1,36 +1,29 @@
 /// <reference types="@workadventure/iframe-api-typings" />
-
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
+import { checkPlayerMaterial, mySound, playRandomSound } from "./footstep";
 
-console.log('Script started successfully');
-
-let currentPopup: any = undefined;
-
-// Waiting for the API to be ready
 WA.onInit().then(() => {
-    console.log('Scripting API ready');
-    console.log('Player tags: ',WA.player.tags)
+  bootstrapExtra().then(() => {
+      console.log('Scripting API Extra ready');
+  }).catch(e => console.error(e));})
 
-    WA.room.area.onEnter('clock').subscribe(() => {
-        const today = new Date();
-        const time = today.getHours() + ":" + today.getMinutes();
-        currentPopup = WA.ui.openPopup("clockPopup", "It's " + time, []);
-    })
+   WA.onInit().then(async () => {
+    if (!WA.room.hashParameters.bot) {
+        WA.player.onPlayerMove(async ({ x, y, moving }) => {
+            const material = await checkPlayerMaterial({ x, y });
+            console.log(material);
 
-    WA.room.area.onLeave('clock').subscribe(closePopup)
+            if (!material) {
+                return mySound?.stop();
+            }
 
-    // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
-    bootstrapExtra().then(() => {
-        console.log('Scripting API Extra ready');
-    }).catch(e => console.error(e));
-
-}).catch(e => console.error(e));
-
-function closePopup(){
-    if (currentPopup !== undefined) {
-        currentPopup.close();
-        currentPopup = undefined;
+            if (!moving && !material) {
+                return mySound?.stop();
+            } else {
+                mySound?.stop();
+                return playRandomSound(material);
+            }
+        });
     }
-}
-
+}); 
 export {};
