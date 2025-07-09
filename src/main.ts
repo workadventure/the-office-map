@@ -1,6 +1,6 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
-import { checkPlayerMaterial, mySound, playRandomSound } from "./footstep";
+//import { checkPlayerMaterial, mySound, playRandomSound } from "./footstep";
 
 WA.onInit().then(() => {
   bootstrapExtra().then(() => {
@@ -8,7 +8,7 @@ WA.onInit().then(() => {
   }).catch(e => console.error(e));})
 
    WA.onInit().then(async () => {
-    if (!WA.room.hashParameters.bot) {
+    /*if (!WA.room.hashParameters.bot) {
         WA.player.onPlayerMove(async ({ x, y, moving }) => {
             const material = await checkPlayerMaterial({ x, y });
             console.log(material);
@@ -24,6 +24,6 @@ WA.onInit().then(() => {
                 return playRandomSound(material);
             }
         });
-    }
+    }*/
 }); 
 export {};
