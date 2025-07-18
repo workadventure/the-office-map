@@ -25,5 +25,16 @@ WA.onInit().then(() => {
             }
         });
     }*/
+
+    // Add button to redirect user to the website create your own The Office map
+    WA.ui.actionBar.addButton({
+        id: "create-your-own-office-map",
+        label: "Clone 📺",
+        toolTip: WA.player.language.indexOf('fr') !== -1 ? "Créer votre propre salon The Office" : "Create your own The Office room",
+        isGradient: false,
+        callback: () => {
+            WA.nav.openTab("https://admin.workadventu.re/landing/en/the-office");
+        }
+    });
 }); 
 export {};
